@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小猫的表白</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #fce4ec;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+    }
+    .cat {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      background: url('cat1.png') no-repeat center / contain;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    .bubble {
+      max-width: 80%;
+      margin: 20px auto;
+      padding: 15px 20px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      font-size: 18px;
+      line-height: 1.5;
+      color: #333;
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .button {
+      padding: 10px 20px;
+      background-color: #ff4081;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .button:hover {
+      background-color: #f50057;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 小猫形象 -->
+    <div class="cat" id="catImage"></div>
+    <!-- 对话框 -->
+    <div class="bubble" id="bubble"></div>
+    <!-- 按钮 -->
+    <button class="button" id="nextButton">喵~ 继续</button>
+  </div>
+
+  <script>
+    // 小猫对话
+    const messages = [
+      "嗨！我是你的小猫喵~",
+      "每天看到姐姐，我都觉得好开心！",
+      "每次姐姐抱着我的时候，我都觉得好温暖喵~",
+      "其实……其实我有一件事情想对你说喵~",
+      "我喜欢你！"
+    ];
+
+    // 小猫图片路径
+    const catImages = ['cat1.png', 'cat2.png', 'cat3.png'];
+
+    let currentMessageIndex = 0; // 当前对话索引
+    let currentCatIndex = 0;     // 当前小猫图片索引
+
+    // 获取页面元素
+    const bubble = document.getElementById('bubble');
+    const nextButton = document.getElementById('nextButton');
+    const catImage = document.getElementById('catImage');
+
+    // 显示对话内容并切换小猫形象
+    function showMessage() {
+      if (currentMessageIndex < messages.length) {
+        // 显示对话框内容
+        bubble.style.display = 'block';
+        bubble.textContent = messages[currentMessageIndex];
+        currentMessageIndex++;
+
+        // 切换小猫图片
+        currentCatIndex = (currentCatIndex + 1) % catImages.length; // 循环切换图片
+        catImage.style.backgroundImage = `url('${catImages[currentCatIndex]}')`;
+
+        // 如果是最后一句对话，更改按钮文字
+        if (currentMessageIndex === messages.length) {
+          nextButton.textContent = "喵喵~ 再点一下！";
+        }
+      } else {
+        // 对话结束，显示总结信息
+        bubble.textContent = "喵喵喵~ 记得每天都要开心哦！";
+        nextButton.style.display = 'none';
+      }
+    }
+
+    // 按钮点击事件
+    nextButton.addEventListener('click', showMessage);
+
+    // 初始化显示第一个对话
+    showMessage();
+  </script>
+</body>
+</html>
