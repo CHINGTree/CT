@@ -67,6 +67,12 @@
     .button:hover {
       background-color: #f50057;
     }
+    .audio-control {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #888;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -77,7 +83,15 @@
     <div class="bubble" id="bubble"></div>
     <!-- 按钮 -->
     <button class="button" id="nextButton">喵~ 继续</button>
+    <!-- 音乐控制按钮 -->
+    <div class="audio-control" id="audioControl">🔊 点击播放背景音乐</div>
   </div>
+
+  <!-- 背景音乐 -->
+  <audio id="backgroundMusic" loop>
+    <source src="background-music.mp3" type="audio/mpeg">
+    您的浏览器不支持音频播放。
+  </audio>
 
   <script>
     // 小猫对话
@@ -99,6 +113,8 @@
     const bubble = document.getElementById('bubble');
     const nextButton = document.getElementById('nextButton');
     const catImage = document.getElementById('catImage');
+    const audioControl = document.getElementById('audioControl');
+    const backgroundMusic = document.getElementById('backgroundMusic');
 
     // 显示对话内容并切换小猫形象
     function showMessage() {
@@ -128,6 +144,19 @@
 
     // 初始化显示第一个对话
     showMessage();
+
+    // 音乐播放/暂停控制
+    let isPlaying = false;
+    audioControl.addEventListener('click', () => {
+      if (isPlaying) {
+        backgroundMusic.pause();
+        audioControl.textContent = "🔈 点击播放背景音乐";
+      } else {
+        backgroundMusic.play();
+        audioControl.textContent = "🔊 点击暂停背景音乐";
+      }
+      isPlaying = !isPlaying;
+    });
   </script>
 </body>
 </html>
